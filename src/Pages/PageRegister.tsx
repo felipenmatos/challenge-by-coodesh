@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../Assets/e-book.png";
 import logo from "../Assets/logo-red.svg";
 
 function PageRegister() {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/Concluded");
+  }
+
   return (
     <Container>
       <ContainerText>
@@ -18,7 +25,7 @@ function PageRegister() {
         <Input placeholder="Digite seu email..." />
         <Input placeholder="Digite sua senha..." />
         <Input placeholder="Repita a senha..." />
-        <Button>Concluir</Button>
+        <Button onClick={() => handleClick()}>Concluir</Button>
       </ContainerLogin>
     </Container>
   );

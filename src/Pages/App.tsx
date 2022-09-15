@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "./Assets/e-book.png";
 import logo from "./Assets/logo-red.svg";
 
-function App() {
+function Login() {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/Home");
+  }
+
   return (
     <Container>
       <ContainerText>
@@ -18,7 +25,7 @@ function App() {
         <Input placeholder="Digite seu email..." />
         <Input placeholder="Digite sua senha..." />
         <Register>Cadastre-se</Register>
-        <Button>Entrar</Button>
+        <Button onClick={() => handleClick()}>Entrar</Button>
       </ContainerLogin>
     </Container>
   );
@@ -139,4 +146,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default App;
+export default Login;

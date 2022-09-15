@@ -1,10 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../Assets/e-book.png";
 import logo from "../Assets/logo-red.svg";
 import imgConcluded from "../Assets/valid.svg";
 
-function PageRegister() {
+function PageConcluded() {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/");
+  }
+
   return (
     <Container>
       <ContainerText>
@@ -17,7 +24,7 @@ function PageRegister() {
         <Logo src={logo} />
         <TitleLogin>Cadastro Concluído</TitleLogin>
         <ImgConcluded src={imgConcluded} />
-        <Button>Entrar</Button>
+        <Button onClick={() => handleClick()}>Entrar</Button>
       </ContainerLogin>
     </Container>
   );
@@ -98,4 +105,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default PageRegister;
+export default PageConcluded;
