@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import img from "./Assets/e-book.png";
-import logo from "./Assets/logo-red.svg";
+import img from "../Assets/e-book.png";
+import logo from "../Assets/logo-red.svg";
 
 function Login() {
   const navigate = useNavigate();
