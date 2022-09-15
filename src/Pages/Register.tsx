@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import img from "./Assets/e-book.png";
-import logo from "./Assets/logo-red.svg";
+import img from "../Assets/e-book.png";
+import logo from "../Assets/logo-red.svg";
 
-function App() {
+function PageRegister() {
   return (
     <Container>
       <ContainerText>
@@ -14,11 +14,11 @@ function App() {
       </ContainerText>
       <ContainerLogin>
         <Logo src={logo} />
-        <TitleLogin>Faça seu Login</TitleLogin>
+        <TitleLogin>Cadastro</TitleLogin>
         <Input placeholder="Digite seu email..." />
         <Input placeholder="Digite sua senha..." />
-        <Register>Cadastre-se</Register>
-        <Button>Entrar</Button>
+        <Input placeholder="Repita a senha..." />
+        <Button>Concluir</Button>
       </ContainerLogin>
     </Container>
   );
@@ -89,25 +89,6 @@ const Input = styled.input`
   outline: 0;
 `;
 
-const Register = styled.button`
-  margin-top: 20px;
-  margin-left: 40%;
-  background: transparent;
-  border: none;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #e90000;
-  cursor: pointer;
-`;
-
 const Button = styled.button`
   margin-top: 15px;
   width: 131px;
@@ -124,4 +105,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default App;
+export default PageRegister;
