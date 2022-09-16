@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../Assets/e-book.png";
 import logo from "../Assets/logo-red.svg";
+import { useHook } from "../Context/state";
 
 function Login() {
   const navigate = useNavigate();
+  const { userContext } = useHook();
+  const { email, password } = userContext;
+  const [emailLogin, setEmailLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+  const [error, setError] = useState(false);
 
-  function handleClick() {
-    navigate("/Home");
+  function handleValidate() {
+    if (
+      passwordLogin.length === 0 ||
+      emailLogin.length === 0 ||
+      passwordLogin !== password ||
+      emailLogin !== email
+    ) {
+      setError(true);
+    } else if (!emailLogin.includes("@")) {
+      setError(true);
+    } else if (!emailLogin.includes(".com")) {
+      setError(true);
+    } else {
+      navigate("/Home");
+    }
   }
 
   function clickRegister() {
-    navigate("/Register");
+    navigate("/register");
   }
 
   return (
@@ -26,10 +45,23 @@ function Login() {
       <ContainerLogin>
         <Logo src={logo} />
         <TitleLogin>Faça seu Login</TitleLogin>
-        <Input placeholder="Digite seu email..." />
-        <Input placeholder="Digite sua senha..." />
+        <Input
+          placeholder="Digite seu email..."
+          type="text"
+          value={emailLogin}
+          onChange={(e) => setEmailLogin(e.target.value)}
+        />
+        <Input
+          placeholder="Digite sua senha..."
+          type="text"
+          value={passwordLogin}
+          onChange={(e) => setPasswordLogin(e.target.value)}
+        />
+        {error && (
+          <Error>Não foi encontrado esses dados. Efetue o cadastro!</Error>
+        )}
         <Register onClick={() => clickRegister()}>Cadastre-se</Register>
-        <Button onClick={() => handleClick()}>Entrar</Button>
+        <Button onClick={() => handleValidate()}>Entrar</Button>
       </ContainerLogin>
     </Container>
   );
@@ -113,6 +145,16 @@ const Input = styled.input`
     line-height: 24px;
     color: #000000;
   }
+`;
+
+const Error = styled.p`
+  font-family: "Inter";
+  font-style: normal;
+  font-size: 14px;
+  line-height: 29px;
+  color: #e90000;
+  margin-top: -5px;
+  margin-bottom: -24px;
 `;
 
 const Register = styled.button`
