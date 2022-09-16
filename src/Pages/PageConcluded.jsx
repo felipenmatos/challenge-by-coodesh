@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../../src/Assets/e-book.png";
 import logo from "../../src/Assets/logo-red.svg";
+import imgConcluded from "../Assets/valid.svg";
 
-function PageRegister() {
+function PageConcluded() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/Concluded");
+    navigate("/");
   }
 
   return (
@@ -21,11 +22,9 @@ function PageRegister() {
       </ContainerText>
       <ContainerLogin>
         <Logo src={logo} />
-        <TitleLogin>Cadastro</TitleLogin>
-        <Input placeholder="Digite seu email..." />
-        <Input placeholder="Digite sua senha..." />
-        <Input placeholder="Repita a senha..." />
-        <Button onClick={() => handleClick()}>Concluir</Button>
+        <TitleLogin>Cadastro Concluído</TitleLogin>
+        <ImgConcluded src={imgConcluded} />
+        <Button onClick={() => handleClick()}>Entrar</Button>
       </ContainerLogin>
     </Container>
   );
@@ -85,30 +84,9 @@ const TitleLogin = styled.h1`
   line-height: 48px;
 `;
 
-const Input = styled.input`
-  margin-top: 30px;
-  width: 361px;
-  height: 44px;
-  padding: 10px;
-  background: #ffffff;
-  border: 3px solid #e90000;
-  border-radius: 10px;
-  outline: 0;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-
-  ::placeholder {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
-  }
+const ImgConcluded = styled.img`
+  width: 241.56px;
+  height: 163.7px;
 `;
 
 const Button = styled.button`
@@ -127,4 +105,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default PageRegister;
+export default PageConcluded;

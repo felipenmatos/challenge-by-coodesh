@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import img from "../Assets/e-book.png";
-import logo from "../Assets/logo-red.svg";
+import img from "../../src/Assets/e-book.png";
+import logo from "../../src/Assets/logo-red.svg";
+import { useHook } from "../Context/state";
 
-function Login() {
+function PageRegister() {
+  const { userContext } = useHook();
+  const { email, setEmail, password, setPassword } = userContext;
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
-  function handleClick() {
-    navigate("/Home");
-  }
-
-  function clickRegister() {
-    navigate("/Register");
+  function handleSubmit() {
+    if (email.length === 0) {
+      setError(true);
+    } else if (!email.includes("@")) {
+      setError(true);
+    } else if (!email.includes(".com")) {
+      setError(true);
+    } else if (password !== passwordRepeat) {
+      setError(true);
+    } else {
+      navigate("/Concluded");
+    }
   }
 
   return (
@@ -25,11 +36,32 @@ function Login() {
       </ContainerText>
       <ContainerLogin>
         <Logo src={logo} />
-        <TitleLogin>Faça seu Login</TitleLogin>
-        <Input placeholder="Digite seu email..." />
-        <Input placeholder="Digite sua senha..." />
-        <Register onClick={() => clickRegister()}>Cadastre-se</Register>
-        <Button onClick={() => handleClick()}>Entrar</Button>
+        <TitleLogin>Cadastro</TitleLogin>
+        <Input
+          placeholder="Digite seu email..."
+          value={email}
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          maxLength={80}
+        />
+        <Input
+          placeholder="Digite sua senha..."
+          value={password}
+          type="text"
+          onChange={(e) => setPassword(e.target.value)}
+          maxLength={40}
+        />
+        <Input
+          placeholder="Repita a senha..."
+          type="text"
+          value={passwordRepeat}
+          onChange={(e) => setPasswordRepeat(e.target.value)}
+          maxLength={40}
+        />
+        {error && (
+          <Error>Não foi possível efetuar o cadastro, confira os dados.</Error>
+        )}
+        <Button onClick={() => handleSubmit()}>Concluir</Button>
       </ContainerLogin>
     </Container>
   );
@@ -115,27 +147,18 @@ const Input = styled.input`
   }
 `;
 
-const Register = styled.button`
-  margin-top: 20px;
-  margin-left: 40%;
-  background: transparent;
-  border: none;
+const Error = styled.p`
   font-family: "Inter";
   font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 29px;
   color: #e90000;
-  cursor: pointer;
+  margin-top: -5px;
+  margin-bottom: -24px;
 `;
 
 const Button = styled.button`
-  margin-top: 15px;
+  margin-top: 35px;
   width: 131px;
   height: 64px;
   background: #e90000;
@@ -150,4 +173,4 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-export default Login;
+export default PageRegister;

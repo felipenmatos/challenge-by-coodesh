@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../Pages/App";
-import PageConcluded from "../Pages/PageConcluded";
-import PageHome from "../Pages/PageHome";
-import PageRegister from "../Pages/PageRegister";
+import PageConcluded from "../Pages/PageConcluded.jsx";
+import PageHome from "../Pages/PageHome.jsx";
+import PageRegister from "../Pages/PageRegister.jsx";
 
 function RouterPages() {
   return (
