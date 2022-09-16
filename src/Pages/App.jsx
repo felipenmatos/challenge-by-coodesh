@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../Assets/e-book.png";
 import logo from "../Assets/logo-red.svg";
+import TitleLogin from "../Components/TitleLogin";
 import { useHook } from "../Context/state";
 
 function Login() {
@@ -44,7 +45,7 @@ function Login() {
       </ContainerText>
       <ContainerLogin>
         <Logo src={logo} />
-        <TitleLogin>Faça seu Login</TitleLogin>
+        <TitleLogin text="Faça seu Login" />
         <Input
           placeholder="Digite seu email..."
           type="text"
@@ -112,13 +113,6 @@ const ContainerLogin = styled.div`
 
 const Logo = styled.img`
   margin-top: 80px;
-`;
-
-const TitleLogin = styled.h1`
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
 `;
 
 const Input = styled.input`
