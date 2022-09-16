@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../../src/Assets/e-book.png";
 import logo from "../../src/Assets/logo-red.svg";
+import InputLogin from "../Components/InputLogin";
 import { useHook } from "../Context/state";
 
 function PageRegister() {
@@ -37,21 +38,21 @@ function PageRegister() {
       <ContainerLogin>
         <Logo src={logo} />
         <TitleLogin>Cadastro</TitleLogin>
-        <Input
+        <InputLogin
           placeholder="Digite seu email..."
           value={email}
           type="text"
           onChange={(e) => setEmail(e.target.value)}
           maxLength={80}
         />
-        <Input
+        <InputLogin
           placeholder="Digite sua senha..."
           value={password}
           type="text"
           onChange={(e) => setPassword(e.target.value)}
           maxLength={40}
         />
-        <Input
+        <InputLogin
           placeholder="Repita a senha..."
           type="text"
           value={passwordRepeat}
@@ -119,32 +120,6 @@ const TitleLogin = styled.h1`
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;
-`;
-
-const Input = styled.input`
-  margin-top: 30px;
-  width: 361px;
-  height: 44px;
-  padding: 10px;
-  background: #ffffff;
-  border: 3px solid #e90000;
-  border-radius: 10px;
-  outline: 0;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-
-  ::placeholder {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
-  }
 `;
 
 const Error = styled.p`

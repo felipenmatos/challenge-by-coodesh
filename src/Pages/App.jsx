@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import img from "../Assets/e-book.png";
 import logo from "../Assets/logo-red.svg";
+import InputLogin from "../Components/InputLogin";
 import TitleLogin from "../Components/TitleLogin";
 import { useHook } from "../Context/state";
 
@@ -46,13 +47,13 @@ function Login() {
       <ContainerLogin>
         <Logo src={logo} />
         <TitleLogin text="Faça seu Login" />
-        <Input
+        <InputLogin
           placeholder="Digite seu email..."
           type="text"
           value={emailLogin}
           onChange={(e) => setEmailLogin(e.target.value)}
         />
-        <Input
+        <InputLogin
           placeholder="Digite sua senha..."
           type="text"
           value={passwordLogin}
@@ -113,32 +114,6 @@ const ContainerLogin = styled.div`
 
 const Logo = styled.img`
   margin-top: 80px;
-`;
-
-const Input = styled.input`
-  margin-top: 30px;
-  width: 361px;
-  height: 44px;
-  padding: 10px;
-  background: #ffffff;
-  border: 3px solid #e90000;
-  border-radius: 10px;
-  outline: 0;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-
-  ::placeholder {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
-  }
 `;
 
 const Error = styled.p`
