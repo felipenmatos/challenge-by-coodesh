@@ -14,6 +14,7 @@ function Login() {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [error, setError] = useState(false);
+  const [dados, setDados] = useState([]);
 
   function handleValidate() {
     if (

@@ -6,6 +6,10 @@ import logo from "../Assets/logo-white.svg";
 function PageHome() {
   const navigate = useNavigate();
 
+  fetch("https://api.dictionaryapi.dev/api/v2/entries/en/")
+    .then((T) => T.json())
+    .then(console.log);
+
   function clickExit() {
     navigate("/");
   }
