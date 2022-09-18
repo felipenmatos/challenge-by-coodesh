@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/logo-white.svg";
+import { starCountRef } from "../Auth-Provider/auth-provider";
 
 function PageHome() {
+  const [name, setName] = useState("");
+  const [list, setList] = useState([]);
   const navigate = useNavigate();
+  const listData = starCountRef;
 
-  fetch("https://api.dictionaryapi.dev/api/v2/entries/en/")
-    .then((T) => T.json())
-    .then(console.log);
+  function handleClick() {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/hello`)
+      .then((T) => T.json())
+      .then(console.log);
+  }
 
   function clickExit() {
     navigate("/");
