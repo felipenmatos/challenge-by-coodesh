@@ -19,5 +19,5 @@ const db = getDatabase(app);
 export const starCountRef = ref(db, "list");
 onValue(starCountRef, (snapshot) => {
   const data = snapshot.val();
-  console.log(data);
+  return data;
 });

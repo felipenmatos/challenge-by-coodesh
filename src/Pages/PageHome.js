@@ -3,12 +3,21 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/logo-white.svg";
 import { starCountRef } from "../Auth-Provider/auth-provider";
+import { onValue } from "firebase/database";
 
 function PageHome() {
   const [name, setName] = useState("");
   const [list, setList] = useState([]);
   const navigate = useNavigate();
-  const listData = starCountRef;
+
+  useEffect(() => {
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      setList(data);
+    });
+  }, []);
+
+  console.log(list);
 
   function handleClick() {
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/hello`)
@@ -47,7 +56,11 @@ function PageHome() {
               <ButtonListDuo>Favorites</ButtonListDuo>
             </Row>
             <ContainerListButtons>
-              <Button>Text</Button>
+              {list.map((item, id) => (
+                <div key={id}>
+                  <Button>{item}</Button>
+                </div>
+              ))}
             </ContainerListButtons>
           </Column>
         </ContainerList>
@@ -203,11 +216,31 @@ const ContainerList = styled.div`
 `;
 
 const ContainerListButtons = styled.div`
-  width: 554px;
+  width: 560px;
   height: 380px;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 154px);
+  grid-gap: 20px;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 22px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 60px;
+    background-color: #e90000;
+    border-radius: 20px;
+    border: 3px solid #ffffff;
+  }
 `;
 
 const Column = styled.div`
@@ -255,14 +288,15 @@ const ButtonListDuo = styled.button`
 `;
 
 const Button = styled.button`
-  width: 90px;
-  height: 50px;
+  width: 170px;
+  height: 70px;
+  margin-bottom: -5px;
   background: #ffffff;
   border: 3px solid #e90000;
   font-family: "Inter";
   font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 18px;
   line-height: 24px;
   color: #e90000;
   text-align: center;
