@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../Pages/App";
 import PageConcluded from "../Pages/PageConcluded.jsx";
-import PageHome from "../Pages/PageHome.js";
+import PageHome from "../Pages/PageHome.jsx";
 import PageRegister from "../Pages/PageRegister.jsx";
 
 function RouterPages() {

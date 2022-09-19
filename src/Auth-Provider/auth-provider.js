@@ -1,23 +1,18 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { useState } from "react";
+import { getDatabase, ref } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB-ScNAsZ5HBzFsfVYmHBM73BmKpiaCnj4",
-  authDomain: "list-english.firebaseapp.com",
-  databaseURL: "https://list-english-default-rtdb.firebaseio.com",
-  projectId: "list-english",
-  storageBucket: "list-english.appspot.com",
-  messagingSenderId: "291998724093",
-  appId: "1:291998724093:web:6773166bbe021d0714b394",
-  measurementId: "G-45JR6S15GJ",
+  apiKey: "AIzaSyCDsJQrAZNZ-MW57GzqRpw9q_uOaPMGtH0",
+  authDomain: "english-list.firebaseapp.com",
+  databaseURL: "https://english-list-default-rtdb.firebaseio.com",
+  projectId: "english-list",
+  storageBucket: "english-list.appspot.com",
+  messagingSenderId: "972192123931",
+  appId: "1:972192123931:web:d86bb3b87de1b5f839bcbe",
+  measurementId: "G-203BXKE5G1",
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 export const starCountRef = ref(db, "list");
-onValue(starCountRef, (snapshot) => {
-  const data = snapshot.val();
-  return data;
-});

@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/logo-white.svg";
+import axios from "axios";
+import ReactAudioPlayer from "react-audio-player";
 import { starCountRef } from "../Auth-Provider/auth-provider";
 import { onValue } from "firebase/database";
 
 function PageHome() {
-  const [name, setName] = useState("");
   const [list, setList] = useState([]);
+  const [select, setSelect] = useState("");
+  const [meaningsList, setMeaningsList] = useState([]);
+  const [audio, setAudio] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,13 +22,25 @@ function PageHome() {
     });
   }, []);
 
-  console.log(list);
-
-  function handleClick() {
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/hello`)
-      .then((T) => T.json())
-      .then(console.log);
-  }
+  const dicionaryApi = async () => {
+    try {
+      const data = await axios.get(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${select.item}`
+      );
+      setMeaningsList(data.data[0].meanings[0].definitions[0].definition);
+      setAudio(data.data[0].phonetics[0].audio);
+      setError(false);
+    } catch (error) {
+      console.log(error);
+      if (error) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+    }
+  };
+  console.log(meaningsList);
+  console.log(audio);
 
   function clickExit() {
     navigate("/");
@@ -38,12 +55,19 @@ function PageHome() {
       <Body>
         <ContainerDisplay>
           <Display>
-            <TextDisplay>Texto</TextDisplay>
+            <TextDisplay>{select.item}</TextDisplay>
           </Display>
           <ContainerMeanings>
             <TitleMeanings>Title Meanings</TitleMeanings>
-            <SubtitleMeanings>Descriptions</SubtitleMeanings>
+            {error === true ? (
+              <SubtitleMeanings>
+                We couldn't find a definition for this name
+              </SubtitleMeanings>
+            ) : (
+              <SubtitleMeanings>{meaningsList}</SubtitleMeanings>
+            )}
           </ContainerMeanings>
+          <Audio src={audio} autoPlay controls />
           <RowButtons>
             <ButtonReturn>Voltar</ButtonReturn>
             <ButtonNext>Próximo</ButtonNext>
@@ -58,7 +82,14 @@ function PageHome() {
             <ContainerListButtons>
               {list.map((item, id) => (
                 <div key={id}>
-                  <Button>{item}</Button>
+                  <Button
+                    onClick={() => {
+                      setSelect({ item });
+                      dicionaryApi();
+                    }}
+                  >
+                    {item}
+                  </Button>
                 </div>
               ))}
             </ContainerListButtons>
@@ -112,7 +143,7 @@ const ButtonExit = styled.button`
 `;
 
 const Body = styled.div`
-  margin-top: 10%;
+  margin-top: 7%;
   width: 100%;
   height: 80%;
   display: flex;
@@ -123,10 +154,11 @@ const Body = styled.div`
 const ContainerDisplay = styled.div`
   display: flex;
   flex-direction: column;
+  width: 400px;
 `;
 
 const Display = styled.div`
-  width: 250px;
+  width: 100%;
   height: 183px;
   display: flex;
   flex-direction: column;
@@ -151,6 +183,8 @@ const TextDisplay = styled.p`
 const ContainerMeanings = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
 `;
 
 const TitleMeanings = styled.p`
@@ -165,10 +199,14 @@ const TitleMeanings = styled.p`
 `;
 
 const SubtitleMeanings = styled.p`
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   color: #ffffff;
 `;
@@ -177,7 +215,8 @@ const RowButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 250px;
+  width: 100%;
+  margin-top: 40px;
 `;
 
 const ButtonReturn = styled.button`
@@ -293,6 +332,7 @@ const Button = styled.button`
   margin-bottom: -5px;
   background: #ffffff;
   border: 3px solid #e90000;
+  border-radius: 10px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -301,6 +341,11 @@ const Button = styled.button`
   color: #e90000;
   text-align: center;
   cursor: pointer;
+`;
+
+const Audio = styled(ReactAudioPlayer)`
+  width: 100%;
+  margin-top: 30px;
 `;
 
 export default PageHome;
