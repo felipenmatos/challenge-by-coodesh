@@ -2,12 +2,28 @@ import styled from "styled-components";
 
 type TypeInput = {
   placeholder: string;
+  value: string;
+  type: string;
+  onChange: () => string;
+  maxLength: number;
 };
 
-function InputLogin({ placeholder }: TypeInput) {
+function InputLogin({
+  placeholder,
+  value,
+  type,
+  onChange,
+  maxLength,
+}: TypeInput) {
   return (
     <Container>
-      <Input placeholder={placeholder} />
+      <Input
+        placeholder={placeholder}
+        value={value}
+        type={type}
+        onChange={onChange}
+        maxLength={maxLength}
+      />
     </Container>
   );
 }

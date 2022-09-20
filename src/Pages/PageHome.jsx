@@ -70,6 +70,7 @@ function PageHome() {
 
   function clickExit() {
     navigate("/");
+    localStorage.removeItem("current_user");
   }
 
   return (

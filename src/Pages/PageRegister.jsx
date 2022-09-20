@@ -24,6 +24,7 @@ function PageRegister() {
       setError(true);
     } else {
       navigate("/Concluded");
+      localStorage.setItem("current_user", "autenticado");
     }
   }
 
