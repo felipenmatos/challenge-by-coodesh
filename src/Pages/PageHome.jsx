@@ -3,19 +3,24 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/logo-white.svg";
 import star from "../Assets/estrela.png";
+import iconDelete from "../Assets/excluir.png";
 import axios from "axios";
 import ReactAudioPlayer from "react-audio-player";
 import { starCountRef } from "../Auth-Provider/auth-provider";
 import { onValue } from "firebase/database";
+import { useHook } from "../Context/state";
+import ModalDelete from "../Components/ModalDelete";
 
 function PageHome() {
+  const { userContext } = useHook();
+  const { favorites, setFavorites } = userContext;
   const [list, setList] = useState([]);
   const [select, setSelect] = useState("");
   const [meaningsList, setMeaningsList] = useState([]);
   const [audio, setAudio] = useState("");
   const [error, setError] = useState(false);
   const [wordList, setWordList] = useState(true);
-  const [favorite, setFavorite] = useState(false);
+  const [idItemDelete, setIdItemDelete] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +48,23 @@ function PageHome() {
     }
   };
 
-  console.log(meaningsList);
+  const saveFavorites = async (e) => {
+    setFavorites([
+      ...favorites,
+      {
+        name: select.item,
+        definition: meaningsList,
+      },
+    ]);
+  };
+
+  const handleDeleteItem = (index) => {
+    let agendamento = favorites;
+    agendamento.splice(index, 1);
+
+    setFavorites(agendamento);
+    setIdItemDelete(null);
+  };
 
   function clickExit() {
     navigate("/");
@@ -71,16 +92,28 @@ function PageHome() {
             )}
           </ContainerMeanings>
           <Audio src={audio} autoPlay controls />
-          <ButtonFavorites />
+          <ButtonFavorites onClick={() => saveFavorites()} />
         </ContainerDisplay>
         <ContainerList>
           <Column>
             <Row>
-              <ButtonList>Word List</ButtonList>
-              <ButtonListDuo>Favorites</ButtonListDuo>
+              <ButtonList
+                onClick={() => {
+                  setWordList(true);
+                }}
+              >
+                Word List
+              </ButtonList>
+              <ButtonListDuo
+                onClick={() => {
+                  setWordList(false);
+                }}
+              >
+                Favorites
+              </ButtonListDuo>
             </Row>
-            <ContainerListButtons>
-              <div>
+            {wordList ? (
+              <ContainerListButtons>
                 {list.map((item, id) => (
                   <div key={id}>
                     <Button
@@ -93,8 +126,27 @@ function PageHome() {
                     </Button>
                   </div>
                 ))}
-              </div>
-            </ContainerListButtons>
+              </ContainerListButtons>
+            ) : (
+              <ContainerListFavorite>
+                {favorites.map((item, id) => (
+                  <RowList key={id}>
+                    <Text>{item.name}</Text>
+                    <Delete
+                      src={iconDelete}
+                      alt="delete icon"
+                      onClick={() => setIdItemDelete(id)}
+                    />
+                    <ModalDelete
+                      show={id === idItemDelete}
+                      setClose={() => setIdItemDelete(null)}
+                      message="Deseja excluir da lista?"
+                      handleConfirm={() => handleDeleteItem(id)}
+                    />
+                  </RowList>
+                ))}
+              </ContainerListFavorite>
+            )}
             <Message>Click a button to find out the meaning.</Message>
           </Column>
         </ContainerList>
@@ -335,6 +387,62 @@ const Button = styled.button`
 const Audio = styled(ReactAudioPlayer)`
   width: 100%;
   margin-top: 30px;
+`;
+
+const ContainerListFavorite = styled.div`
+  width: 560px;
+  height: 380px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 22px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 60px;
+    background-color: #e90000;
+    border-radius: 20px;
+    border: 3px solid #ffffff;
+  }
+`;
+
+const RowList = styled.div`
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border-top: 1px solid #e90000;
+  border-bottom: 1px solid #e90000;
+  padding: 5px;
+`;
+
+const Text = styled.p`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #e90000;
+`;
+
+const Delete = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 25px;
+  cursor: pointer;
 `;
 
 export default PageHome;
