@@ -10,6 +10,7 @@ import { starCountRef } from "../Auth-Provider/auth-provider";
 import { onValue } from "firebase/database";
 import { useHook } from "../Context/state";
 import ModalDelete from "../Components/ModalDelete";
+import Modal from "../Components/Modal";
 
 function PageHome() {
   const { userContext } = useHook();
@@ -21,6 +22,7 @@ function PageHome() {
   const [error, setError] = useState(false);
   const [wordList, setWordList] = useState(true);
   const [idItemDelete, setIdItemDelete] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -92,7 +94,12 @@ function PageHome() {
             )}
           </ContainerMeanings>
           <Audio src={audio} autoPlay controls />
-          <ButtonFavorites onClick={() => saveFavorites()} />
+          <ButtonFavorites
+            onClick={() => {
+              saveFavorites();
+              setShowModal(true);
+            }}
+          />
         </ContainerDisplay>
         <ContainerList>
           <Column>
@@ -131,7 +138,12 @@ function PageHome() {
               <ContainerListFavorite>
                 {favorites.map((item, id) => (
                   <RowList key={id}>
-                    <Text>{item.name}</Text>
+                    <ColumnList>
+                      <Text>{item.name}</Text>
+                      <ContainerDefination>
+                        <Definition>{item.definition}</Definition>
+                      </ContainerDefination>
+                    </ColumnList>
                     <Delete
                       src={iconDelete}
                       alt="delete icon"
@@ -151,6 +163,12 @@ function PageHome() {
           </Column>
         </ContainerList>
       </Body>
+      {showModal && (
+        <Modal
+          title="Added to favorites list."
+          base={() => setShowModal(false)}
+        />
+      )}
     </Container>
   );
 }
@@ -417,8 +435,9 @@ const ContainerListFavorite = styled.div`
 `;
 
 const RowList = styled.div`
+  margin-top: -1px;
   width: 100%;
-  height: 30px;
+  height: 70px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -429,10 +448,35 @@ const RowList = styled.div`
   padding: 5px;
 `;
 
-const Text = styled.p`
+const ColumnList = styled.div`
+  width: 70%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const ContainerDefination = styled.div`
+  width: 100%;
+`;
+
+const Definition = styled.p`
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #e90000;
+`;
+
+const Text = styled.p`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
   font-size: 18px;
   line-height: 24px;
   color: #e90000;
@@ -441,7 +485,7 @@ const Text = styled.p`
 const Delete = styled.img`
   width: 20px;
   height: 20px;
-  margin-right: 25px;
+  margin-right: 15px;
   cursor: pointer;
 `;
 
