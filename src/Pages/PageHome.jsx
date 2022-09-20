@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/logo-white.svg";
+import star from "../Assets/estrela.png";
 import axios from "axios";
 import ReactAudioPlayer from "react-audio-player";
 import { starCountRef } from "../Auth-Provider/auth-provider";
@@ -13,6 +14,8 @@ function PageHome() {
   const [meaningsList, setMeaningsList] = useState([]);
   const [audio, setAudio] = useState("");
   const [error, setError] = useState(false);
+  const [wordList, setWordList] = useState(true);
+  const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,8 +42,8 @@ function PageHome() {
       }
     }
   };
+
   console.log(meaningsList);
-  console.log(audio);
 
   function clickExit() {
     navigate("/");
@@ -68,10 +71,7 @@ function PageHome() {
             )}
           </ContainerMeanings>
           <Audio src={audio} autoPlay controls />
-          <RowButtons>
-            <ButtonReturn>Voltar</ButtonReturn>
-            <ButtonNext>Próximo</ButtonNext>
-          </RowButtons>
+          <ButtonFavorites />
         </ContainerDisplay>
         <ContainerList>
           <Column>
@@ -80,19 +80,22 @@ function PageHome() {
               <ButtonListDuo>Favorites</ButtonListDuo>
             </Row>
             <ContainerListButtons>
-              {list.map((item, id) => (
-                <div key={id}>
-                  <Button
-                    onClick={() => {
-                      setSelect({ item });
-                      dicionaryApi();
-                    }}
-                  >
-                    {item}
-                  </Button>
-                </div>
-              ))}
+              <div>
+                {list.map((item, id) => (
+                  <div key={id}>
+                    <Button
+                      onClick={() => {
+                        setSelect({ item });
+                        dicionaryApi();
+                      }}
+                    >
+                      {item}
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </ContainerListButtons>
+            <Message>Click a button to find out the meaning.</Message>
           </Column>
         </ContainerList>
       </Body>
@@ -198,6 +201,21 @@ const TitleMeanings = styled.p`
   color: #ffffff;
 `;
 
+const ButtonFavorites = styled.button`
+  margin-top: 20px;
+  margin-left: 90%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  background-image: url(${star});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+`;
+
 const SubtitleMeanings = styled.p`
   width: 100%;
   overflow: hidden;
@@ -209,44 +227,6 @@ const SubtitleMeanings = styled.p`
   font-size: 18px;
   line-height: 24px;
   color: #ffffff;
-`;
-
-const RowButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 40px;
-`;
-
-const ButtonReturn = styled.button`
-  width: 114px;
-  height: 64px;
-  background-color: #ffffff;
-  border: none;
-  cursor: pointer;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-  border-radius: 5px;
-`;
-
-const ButtonNext = styled.button`
-  width: 114px;
-  height: 64px;
-  background-color: #ffffff;
-  border: none;
-  cursor: pointer;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  color: #000000;
-  border-radius: 5px;
 `;
 
 const ContainerList = styled.div`
@@ -280,6 +260,15 @@ const ContainerListButtons = styled.div`
     border-radius: 20px;
     border: 3px solid #ffffff;
   }
+`;
+
+const Message = styled.p`
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
 `;
 
 const Column = styled.div`
