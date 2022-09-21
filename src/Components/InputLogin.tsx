@@ -54,6 +54,32 @@ const Input = styled.input`
     line-height: 24px;
     color: #000000;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    width: 321px;
+    height: 34px;
+    padding: 10px;
+    background: #ffffff;
+    border: 3px solid #e90000;
+    border-radius: 10px;
+    outline: 0;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+
+    ::placeholder {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: #000000;
+    }
+  }
 `;
 
 export default InputLogin;
