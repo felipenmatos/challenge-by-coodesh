@@ -4,6 +4,7 @@ import styled from "styled-components";
 import img from "../../src/Assets/e-book.png";
 import logo from "../../src/Assets/logo-red.svg";
 import imgConcluded from "../Assets/valid.svg";
+import TitleLogin from "../Components/TitleLogin";
 
 function PageConcluded() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function PageConcluded() {
       </ContainerText>
       <ContainerLogin>
         <Logo src={logo} />
-        <TitleLogin>Cadastro Concluído</TitleLogin>
+        <TitleLogin text="Cadastro Concluído" />
         <ImgConcluded src={imgConcluded} />
         <Button onClick={() => handleClick()}>Entrar</Button>
       </ContainerLogin>
@@ -36,6 +37,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
 `;
 
 const ContainerText = styled.div`
@@ -46,6 +56,14 @@ const ContainerText = styled.div`
   justify-content: center;
   text-align: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 50%;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const TitleText = styled.h1`
@@ -57,11 +75,27 @@ const TitleText = styled.h1`
   text-align: center;
 
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    width: 350px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 34px;
+    text-align: center;
+
+    color: #ffffff;
+  }
 `;
 
 const Img = styled.img`
   width: 100px;
   height: 100px;
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 const ContainerLogin = styled.div`
@@ -71,22 +105,29 @@ const ContainerLogin = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 70vh;
+  }
 `;
 
 const Logo = styled.img`
   margin-top: 80px;
-`;
 
-const TitleLogin = styled.h1`
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
+  @media (max-width: 768px) {
+    margin-top: 30px;
+  }
 `;
 
 const ImgConcluded = styled.img`
   width: 241.56px;
   height: 163.7px;
+
+  @media (max-width: 768px) {
+    width: 201.56px;
+    height: 123.7px;
+  }
 `;
 
 const Button = styled.button`
@@ -103,6 +144,22 @@ const Button = styled.button`
   line-height: 29px;
   color: #ffffff;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    margin-top: 15px;
+    width: 100px;
+    height: 44px;
+    background: #e90000;
+    border-radius: 5px;
+    border: none;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 29px;
+    color: #ffffff;
+    cursor: pointer;
+  }
 `;
 
 export default PageConcluded;
