@@ -11,6 +11,7 @@ import { onValue } from "firebase/database";
 import { useHook } from "../Context/state";
 import ModalDelete from "../Components/ModalDelete";
 import Modal from "../Components/Modal";
+import Header from "../Components/Header";
 
 function PageHome() {
   const { userContext } = useHook();
@@ -75,10 +76,7 @@ function PageHome() {
 
   return (
     <Container>
-      <Header>
-        <Logo src={logo} />
-        <ButtonExit onClick={() => clickExit()}>Exit</ButtonExit>
-      </Header>
+      <Header base={() => clickExit()} />
       <Body>
         <ContainerDisplay>
           <Display>
@@ -182,40 +180,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Logo = styled.img`
-  width: 139px;
-  height: 51px;
-  margin-top: 48px;
-  margin-left: 48px;
-`;
-
-const ButtonExit = styled.button`
-  margin-top: 48px;
-  margin-right: 48px;
-  width: 73px;
-  height: 34px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-  text-align: center;
-  color: #e90000;
-  background-color: #ffffff;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-`;
-
 const Body = styled.div`
   margin-top: 7%;
   width: 100%;
@@ -223,12 +187,25 @@ const Body = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+
+  @media (max-width: 768px) {
+    margin-top: 5%;
+    width: 100%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ContainerDisplay = styled.div`
   display: flex;
   flex-direction: column;
   width: 400px;
+
+  @media (max-width: 768px) {
+    width: 280px;
+  }
 `;
 
 const Display = styled.div`
@@ -241,6 +218,18 @@ const Display = styled.div`
   background: #ffffff;
   border-radius: 10px;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 93px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 `;
 
 const TextDisplay = styled.p`
@@ -252,6 +241,17 @@ const TextDisplay = styled.p`
   text-align: center;
 
   color: #e90000;
+
+  @media (max-width: 768px) {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 29px;
+    text-align: center;
+
+    color: #e90000;
+  }
 `;
 
 const ContainerMeanings = styled.div`
@@ -259,6 +259,13 @@ const ContainerMeanings = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: -10px;
+  }
 `;
 
 const TitleMeanings = styled.p`
@@ -270,6 +277,17 @@ const TitleMeanings = styled.p`
   font-size: 24px;
   line-height: 29px;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 29px;
+    color: #ffffff;
+  }
 `;
 
 const ButtonFavorites = styled.button`
@@ -285,6 +303,21 @@ const ButtonFavorites = styled.button`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    margin-left: 90%;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    background-image: url(${star});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 15px;
+  }
 `;
 
 const SubtitleMeanings = styled.p`
@@ -298,6 +331,19 @@ const SubtitleMeanings = styled.p`
   font-size: 18px;
   line-height: 24px;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #ffffff;
+  }
 `;
 
 const ContainerList = styled.div`
@@ -331,6 +377,34 @@ const ContainerListButtons = styled.div`
     border-radius: 20px;
     border: 3px solid #ffffff;
   }
+
+  @media (max-width: 768px) {
+    width: 360px;
+    height: 205px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 154px);
+    grid-gap: 20px;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    ::-webkit-scrollbar {
+      width: 22px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #ffffff;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 60px;
+      background-color: #e90000;
+      border-radius: 20px;
+      border: 3px solid #ffffff;
+    }
+  }
 `;
 
 const Message = styled.p`
@@ -340,6 +414,16 @@ const Message = styled.p`
   font-size: 14px;
   line-height: 24px;
   color: #ffffff;
+
+  @media (max-width: 768px) {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: #ffffff;
+    margin-top: -2px;
+  }
 `;
 
 const Column = styled.div`
@@ -367,6 +451,23 @@ const ButtonList = styled.button`
   color: #ffffff;
   border: none;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 84px;
+    height: 51px;
+    margin-left: 10px;
+    background: #960b22;
+    border-radius: 10px 10px 0px 0px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 const ButtonListDuo = styled.button`
@@ -384,6 +485,23 @@ const ButtonListDuo = styled.button`
   color: #ffffff;
   border: none;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 84px;
+    height: 51px;
+    margin-left: 10px;
+    background: #1e1e1e;
+    border-radius: 10px 10px 0px 0px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 const Button = styled.button`
@@ -401,11 +519,34 @@ const Button = styled.button`
   color: #e90000;
   text-align: center;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 140px;
+    height: 60px;
+    margin-bottom: -5px;
+    background: #ffffff;
+    border: 3px solid #e90000;
+    border-radius: 10px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #e90000;
+    text-align: center;
+    cursor: pointer;
+  }
 `;
 
 const Audio = styled(ReactAudioPlayer)`
   width: 100%;
   margin-top: 30px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+  }
 `;
 
 const ContainerListFavorite = styled.div`
