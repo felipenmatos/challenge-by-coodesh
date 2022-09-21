@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../Assets/logo-white.svg";
 import star from "../Assets/estrela.png";
 import iconDelete from "../Assets/excluir.png";
 import axios from "axios";
@@ -574,6 +573,31 @@ const ContainerListFavorite = styled.div`
     border-radius: 20px;
     border: 3px solid #ffffff;
   }
+
+  @media (max-width: 768px) {
+    width: 360px;
+    height: 205px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    ::-webkit-scrollbar {
+      width: 22px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #ffffff;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 60px;
+      background-color: #e90000;
+      border-radius: 20px;
+      border: 3px solid #ffffff;
+    }
 `;
 
 const RowList = styled.div`
@@ -613,6 +637,19 @@ const Definition = styled.p`
   font-size: 16px;
   line-height: 24px;
   color: #e90000;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #e90000;
+  }
 `;
 
 const Text = styled.p`
@@ -622,6 +659,15 @@ const Text = styled.p`
   font-size: 18px;
   line-height: 24px;
   color: #e90000;
+
+  @media (max-width: 768px) {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #e90000;
+  }
 `;
 
 const Delete = styled.img`

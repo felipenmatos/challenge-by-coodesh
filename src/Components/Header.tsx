@@ -16,11 +16,20 @@ function Header({ base }: TypeHeader) {
 
 const Container = styled.div`
   width: 100%;
-  height: 5%;
+  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const Logo = styled.img`
