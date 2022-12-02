@@ -5,12 +5,11 @@ import star from "../Assets/estrela.png";
 import iconDelete from "../Assets/excluir.png";
 import axios from "axios";
 import ReactAudioPlayer from "react-audio-player";
-import { starCountRef } from "../Auth-Provider/auth-provider";
-import { onValue } from "firebase/database";
 import { useHook } from "../Context/state";
 import ModalDelete from "../Components/ModalDelete";
 import Modal from "../Components/Modal";
 import Header from "../Components/Header";
+import { data } from "../data/data.js";
 
 function PageHome() {
   const { userContext } = useHook();
@@ -26,10 +25,7 @@ function PageHome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      setList(data);
-    });
+    setList(data);
   }, []);
 
   const dicionaryApi = async () => {
