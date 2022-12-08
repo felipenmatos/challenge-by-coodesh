@@ -1,5 +1,7 @@
 # SOBRE O PROJETO
 
+![project1](https://user-images.githubusercontent.com/82072640/206578734-9dc9b10a-7128-4789-9e5f-f76272222721.jpg)
+
 O projeto Challenge consiste em um sistema de listagem de palavras em Inglês, onde é possível visualizar diversas palavras e ao clicar, verificar o significado e o áudio de pronúncia, além disso o sistema te dar a possibilidade de salvar em favoritos as palavras que você achou interessante, manipulando sua lista de favoritos. Para inicializar o sistema e consultar as palavras, será necessário efetuar o cadastro e o Login. 
 
 ## O DESENVOLVIMENTO
